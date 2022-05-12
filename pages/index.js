@@ -44,9 +44,13 @@ export default function Home() {
   const PromptTextColor = useColorModeValue("black", "white");
   const ClearButtonBG = useColorModeValue("#51b592", "#3b406b");
   const ClearButtonBGHover = useColorModeValue("#18d995", "#656a94");
+  const MissingPrompt = useColorModeValue("#757575", "#c4c4c4");
 
   /* OpenAI Create Completion */
   async function onSubmit(event) {
+    // clear text area
+    setPromptInput("");
+    // api request
     event.preventDefault();
     const response = await openai.createCompletion(engine, {
       prompt: `${promptInput}`,
@@ -59,6 +63,7 @@ export default function Home() {
     var AIprompt = promptInput;
     var AIstory = response.data.choices[0].text;
     const AIresult = { prompt: AIprompt, story: AIstory };
+    // add new prompt
     setPrompts((oldPrompts) => [AIresult, ...oldPrompts]);
   }
 
@@ -223,10 +228,26 @@ export default function Home() {
             return (
               <div key={i}>
                 <PromptCard backgroundColor={PromptCardBG}>
-                  <Text as="h3" p={2} fontSize="24px" color={PromptTextColor}>
-                    {prompt}
-                  </Text>
-                  <Hr />
+                  {prompt ? (
+                    <>
+                      <Text
+                        as="h3"
+                        p={2}
+                        fontSize="24px"
+                        color={PromptTextColor}
+                      >
+                        {prompt}
+                      </Text>
+                      <Hr />
+                    </>
+                  ) : (
+                    <>
+                      <Text as="h3" p={2} fontSize="24px" color={MissingPrompt}>
+                        No prompt
+                      </Text>
+                      <Hr />
+                    </>
+                  )}
                   <Text color={PromptTextColor}>{story}</Text>
                 </PromptCard>
               </div>
