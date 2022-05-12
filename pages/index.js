@@ -154,7 +154,7 @@ export default function Home() {
           </Box>
 
           {/* presence penalty slider */}
-          <Box w="200px" mt={2}>
+          <Box w="200px" mt={2} mb={4}>
             <Text fontSize="18px">
               <Tooltip
                 placement="right"
@@ -215,8 +215,8 @@ export default function Home() {
               Clear Responses
             </Button>
           ) : (
-            <Text fontSize="1.5rem" mb={5}>
-              No Responses Generated
+            <Text fontSize="1.5rem" mb={5} color="grey">
+              No responses generated
             </Text>
           )}
           {prompts.map(({ prompt, story }, i) => {

@@ -56,7 +56,6 @@ export const GenerateButton = styled.input`
     background-color: ${(props) => props.hover};
   }
   @media ${(props) => screenBreakpoints.sm} {
-    display: flex;
     width: 100%;
   }
 `;
